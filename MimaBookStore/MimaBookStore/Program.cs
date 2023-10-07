@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MimaBookStore.Models.Domain;
+using MimaBookStore.Repositories.Abstract;
+using MimaBookStore.Repositories.Implementation;
 
 namespace MimaBookStore
 {
@@ -13,8 +15,9 @@ namespace MimaBookStore
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<MyDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
-
+            builder.Services.AddScoped<IGenreService, GenreService>();
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -33,7 +36,7 @@ namespace MimaBookStore
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Genre}/{action=Add}/{id?}");
 
             app.Run();
         }

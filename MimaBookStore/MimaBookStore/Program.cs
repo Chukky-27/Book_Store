@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using MimaBookStore.Models.Domain;
+
 namespace MimaBookStore
 {
     public class Program
@@ -8,6 +11,8 @@ namespace MimaBookStore
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<MyDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 
             var app = builder.Build();
 

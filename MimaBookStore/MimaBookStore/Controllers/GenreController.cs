@@ -20,11 +20,16 @@ namespace MimaBookStore.Controllers
         [HttpPost]
         public IActionResult Add(Genre model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
                 return View(model);
+            }             
             var result = service.Add(model);
             if (result)
+            {
                 TempData["msg"] = "Added Successfully";
+                return RedirectToAction(nameof(Add));
+            }
             TempData["msg"] = "Error has occurred on server side";
             return View(model);
         }
@@ -43,8 +48,7 @@ namespace MimaBookStore.Controllers
             var result = service.Update(model);
             if (result)
             {
-                TempData["msg"] = "Added Successfully";
-                return RedirectToAction(nameof(Add));
+                return RedirectToAction("GetAll");
             }
                
             TempData["msg"] = "Error has occurred on server side";

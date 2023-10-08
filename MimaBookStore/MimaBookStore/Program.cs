@@ -16,6 +16,7 @@ namespace MimaBookStore
             builder.Services.AddDbContext<MyDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
             builder.Services.AddScoped<IGenreService, GenreService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
             var app = builder.Build();
 
 

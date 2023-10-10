@@ -3,18 +3,18 @@ using MimaBookStore.Repositories.Abstract;
 
 namespace MimaBookStore.Repositories.Implementation
 {
-    public class AuthorService : IAuthorService
+    public class BookService : IBookService
     {
         private readonly MyDbContext context;
-        public AuthorService(MyDbContext context)
+        public BookService(MyDbContext context)
         {
             this.context = context;
         }
-        public bool Add(Author model)
+        public bool Add(Book model)
         {
             try
             {
-                context.Authors.Add(model);
+                context.Book.Add(model);
                 context.SaveChanges();
                 return true;
             }
@@ -31,7 +31,7 @@ namespace MimaBookStore.Repositories.Implementation
                 var data = this.FindById(id);
                 if (data == null)
                     return false;
-                context.Authors.Remove(data);
+                context.Book.Remove(data);
                 context.SaveChanges();
                 return true;
             }
@@ -41,21 +41,21 @@ namespace MimaBookStore.Repositories.Implementation
             }
         }
 
-        public Author FindById(int id)
+        public Book FindById(int id)
         {
-            return context.Authors.Find(id);
+            return context.Book.Find(id);
         }
 
-        public IEnumerable<Author> GetAll()
+        public IEnumerable<Book> GetAll()
         {
-            return context.Authors.ToList();
+            return context.Book.ToList();
         }
 
-        public bool Update(Author model)
+        public bool Update(Book model)
         {
             try
             {
-                context.Authors.Update(model);
+                context.Book.Update(model);
                 context.SaveChanges();
                 return true;
             }

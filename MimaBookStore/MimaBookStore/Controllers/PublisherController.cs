@@ -4,10 +4,10 @@ using MimaBookStore.Repositories.Abstract;
 
 namespace MimaBookStore.Controllers
 {
-    public class AuthorController : Controller
+    public class PublisherController : Controller
     {
-        private readonly IAuthorService service;
-        public AuthorController(IAuthorService service)
+        private readonly IPublisherService service;
+        public PublisherController(IPublisherService service)
         {
             this.service = service;
         }
@@ -18,20 +18,20 @@ namespace MimaBookStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Author model)
+        public IActionResult Add(Publisher model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }
+            }             
             var result = service.Add(model);
-            if (result == null)
+            if (result)
             {
-                TempData["msg"] = "Error has occurred on server side";
-                return View(model);
+                TempData["msg"] = "Added Successfully";
+                return RedirectToAction(nameof(Add));
             }
-            TempData["msg"] = "Added Successfully";
-            return RedirectToAction(nameof(Add));
+            TempData["msg"] = "Error has occurred on server side";
+            return View(model);
         }
 
         public IActionResult Update(int id)
@@ -41,7 +41,7 @@ namespace MimaBookStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Author model)
+        public IActionResult Update(Publisher model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -50,15 +50,15 @@ namespace MimaBookStore.Controllers
             {
                 return RedirectToAction("GetAll");
             }
-
+               
             TempData["msg"] = "Error has occurred on server side";
             return View(model);
         }
 
         public IActionResult Delete(int id)
         {
-            var result = service.Delete(id);
-            return RedirectToAction("GetAll");
+            var result = service.Delete(id);                
+            return RedirectToAction("GetAll");                           
         }
 
         public IActionResult GetAll()
@@ -68,3 +68,4 @@ namespace MimaBookStore.Controllers
         }
     }
 }
+

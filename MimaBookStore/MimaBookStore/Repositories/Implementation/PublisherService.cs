@@ -1,20 +1,21 @@
-﻿using MimaBookStore.Models.Domain;
-using MimaBookStore.Repositories.Abstract;
+﻿using MimaBookStore.Repositories.Abstract;
+using MimaBookStore.Models.Domain;
 
 namespace MimaBookStore.Repositories.Implementation
 {
-    public class AuthorService : IAuthorService
+    public class PublisherService : IPublisherService
     {
         private readonly MyDbContext context;
-        public AuthorService(MyDbContext context)
+        public PublisherService (MyDbContext context)
         {
             this.context = context;
         }
-        public bool Add(Author model)
+
+        public bool Add(Publisher model)
         {
             try
             {
-                context.Authors.Add(model);
+                context.Publisher.Add(model);
                 context.SaveChanges();
                 return true;
             }
@@ -31,7 +32,7 @@ namespace MimaBookStore.Repositories.Implementation
                 var data = this.FindById(id);
                 if (data == null)
                     return false;
-                context.Authors.Remove(data);
+                context.Publisher.Remove(data);
                 context.SaveChanges();
                 return true;
             }
@@ -41,21 +42,21 @@ namespace MimaBookStore.Repositories.Implementation
             }
         }
 
-        public Author FindById(int id)
+        public Publisher FindById(int id)
         {
-            return context.Authors.Find(id);
+            return context.Publisher.Find(id);
         }
 
-        public IEnumerable<Author> GetAll()
+        public IEnumerable<Publisher> GetAll()
         {
-            return context.Authors.ToList();
+            return context.Publisher.ToList();
         }
 
-        public bool Update(Author model)
+        public bool Update(Publisher model)
         {
             try
             {
-                context.Authors.Update(model);
+                context.Publisher.Update(model);
                 context.SaveChanges();
                 return true;
             }

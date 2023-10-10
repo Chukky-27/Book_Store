@@ -10,8 +10,8 @@ namespace MimaBookStore.Models.Domain
         }
 
         public DbSet<Genre> Genre { get; set; }
-        public DbSet<Author> Author { get;}
-        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Book { get; set; }
         public DbSet<Publisher> Publisher { get; set; }
 
     }
